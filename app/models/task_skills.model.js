@@ -1,20 +1,20 @@
 module.exports = (sequelize, Sequelize) => {
-    const Location = sequelize.define("location", {
-      LocationID: {
+    const TaskSkills = sequelize.define("task_skills", {
+      ID: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true
       },
-      Code: {
-        type: Sequelize.STRING,
+      TaskID: {
+        type: Sequelize.INTEGER,
         allowNull: false
       },
-      Description: {
-        type: Sequelize.STRING,
+      SkillID: {
+        type: Sequelize.INTEGER,
         allowNull: false
       }
     });
   
-    return Location;
+    return TaskSkills;
   };
   

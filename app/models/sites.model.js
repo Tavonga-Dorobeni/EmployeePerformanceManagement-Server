@@ -1,20 +1,28 @@
 module.exports = (sequelize, Sequelize) => {
-    const Section = sequelize.define("section", {
-      SectionID: {
+    const Site = sequelize.define("site", {
+      SiteID: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true
       },
-      Code: {
+      Name: {
         type: Sequelize.STRING,
         allowNull: false
       },
       Description: {
         type: Sequelize.STRING,
         allowNull: false
+      },
+      Longitude: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      Latitude: {
+        type: Sequelize.STRING,
+        allowNull: false
       }
     });
   
-    return Section;
+    return Site;
   };
   
