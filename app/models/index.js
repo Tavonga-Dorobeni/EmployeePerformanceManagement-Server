@@ -20,7 +20,6 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.tutorials = require("./tutorial.model.js")(sequelize, Sequelize);
 db.user = require("../models/user.model.js")(sequelize, Sequelize);
 db.role = require("../models/role.model.js")(sequelize, Sequelize);
 
@@ -35,10 +34,28 @@ db.user.belongsToMany(db.role, {
   otherKey: "roleId",
 });
 
-db.tools = require("../models/tools.model.js")(sequelize, Sequelize);
-db.tool_types = require("../models/tool_types.model.js")(sequelize, Sequelize);
-db.sections = require("../models/sections.model.js")(sequelize, Sequelize);
-db.locations = require("../models/locations.model.js")(sequelize, Sequelize);
+db.employees = require("../models/employee.model.js")(sequelize, Sequelize);
+db.tasks = require("../models/tasks.model.js")(sequelize, Sequelize);
+db.skills = require("../models/skills.model.js")(sequelize, Sequelize);
+db.sites = require("../models/sites.model.js")(sequelize, Sequelize);
+db.employee_tasks = require("../models/employee_tasks.model.js")(sequelize, Sequelize);
+db.employee_skills = require("../models/employee_skills.model.js")(sequelize, Sequelize);
+db.task_skills = require("../models/task_skills.model.js")(sequelize, Sequelize);
+
+db.employees.hasMany(db.employee_skills, {
+  as: "skills",
+  foreignKey: "EmployeeID",
+}, {foreignKeyConstraint: true});
+
+db.employees.hasMany(db.employee_tasks, {
+  as: "tasks",
+  foreignKey: "EmployeeID",
+}, {foreignKeyConstraint: true});
+
+db.tasks.hasMany(db.task_skills, {
+  as: "skills",
+  foreignKey: "TaskID",
+}, {foreignKeyConstraint: true});
 
 db.ROLES = ["user", "admin", "moderator"];
 

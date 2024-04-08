@@ -1,20 +1,20 @@
 module.exports = (sequelize, Sequelize) => {
-    const ToolType = sequelize.define("tool_type", {
-      ToolTypeID: {
+    const EmployeeSkills = sequelize.define("employee_skills", {
+      ID: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true
       },
-      Code: {
-        type: Sequelize.STRING,
+      EmployeeID: {
+        type: Sequelize.INTEGER,
         allowNull: false
       },
-      Description: {
-        type: Sequelize.STRING,
+      SkillID: {
+        type: Sequelize.INTEGER,
         allowNull: false
       }
     });
   
-    return ToolType;
+    return EmployeeSkills;
   };
   

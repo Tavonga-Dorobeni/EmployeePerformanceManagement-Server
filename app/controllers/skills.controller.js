@@ -1,32 +1,32 @@
 const db = require("../models");
-const Tool = db.tools;
+const Skill = db.skills;
 const Op = db.Sequelize.Op;
 
-// Create and Save a new Tool
+// Create and Save a new Skill
 exports.create = (req, res) => {
-  // Create a Tool
-  Tool.create(req.body)
+  // Create a Skill
+  Skill.create(req.body)
     .then((data) => {
       res.send({
-        tool: data,
-        message: "Tool posted successfully",
+        skill: data,
+        message: "Skill posted successfully",
       });
     })
     .catch((err) => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while creating the Tool.",
+          err.message || "Some error occurred while creating the Skill.",
       });
       console.log(err)
     });
 };
 
-// Retrieve all Tools from the database.
+// Retrieve all Skills from the database.
 exports.findAll = (req, res) => {
   const title = req.query.title;
   var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
 
-  Tool.findAll({
+  Skill.findAll({
   where: condition,
   include: [
     {
@@ -47,43 +47,43 @@ exports.findAll = (req, res) => {
     });
 };
 
-// Find a single Tool with an id
+// Find a single Skill with an id
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  Tool.findByPk(id)
+  Skill.findByPk(id)
     .then((data) => {
       if (data) {
         res.send(data);
       } else {
         res.status(404).send({
-          message: `Cannot find Tool with id=${id}.`,
+          message: `Cannot find Skill with id=${id}.`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error while retrieving Tool",
+        message: "Error while retrieving Skill",
       });
-      console.log(">> Error while retrieving Tool: ", err);
+      console.log(">> Error while retrieving Skill: ", err);
     });
 };
 
-// Update a Tool by the id in the request
+// Update a Skill by the id in the request
 exports.update = (req, res) => {
   const id = req.params.id;
 
-  Tool.update(req.body, {
-    where: { ToolID: id },
+  Skill.update(req.body, {
+    where: { SkillID: id },
   })
     .then((num) => {
       if (num == 1) {
         res.send({
-          message: "Tool was updated successfully.",
+          message: "Skill was updated successfully.",
         });
       } else {
         res.send({
-          message: `Tool was not found!`,
+          message: `Skill was not found!`,
         });
       }
     })
@@ -95,51 +95,51 @@ exports.update = (req, res) => {
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error while updating Tool",
+        message: "Error while updating Skill",
       });
-      console.log(">> Error while updating Tool: ", err);
+      console.log(">> Error while updating Skill: ", err);
     });
 };
 
-// Delete a Tool with the specified id in the request
+// Delete a Skill with the specified id in the request
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  Tool.destroy({
-    where: { ToolID: id },
+  Skill.destroy({
+    where: { SkillID: id },
   })
     .then((num) => {
       if (num == 1) {
         res.send({
-          message: "Tool was deleted successfully!",
+          message: "Skill was deleted successfully!",
         });
       } else {
         res.send({
-          message: `Tool was not found!`,
+          message: `Skill was not found!`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Could not delete Tool",
+        message: "Could not delete Skill",
       });
-      console.log(">> Error while deleting Tool: ", err);
+      console.log(">> Error while deleting Skill: ", err);
     });
 };
 
-// Delete all Tools from the database.
+// Delete all Skills from the database.
 exports.deleteAll = (req, res) => {
-  Tool.destroy({
+  Skill.destroy({
     where: {},
     truncate: false,
   })
     .then((nums) => {
-      res.send({ message: `${nums} Tools were deleted successfully!` });
+      res.send({ message: `${nums} Skills were deleted successfully!` });
     })
     .catch((err) => {
       res.status(500).send({
         message: "An error occurred while deleting all applications.",
       });
-      console.log(">> Error while deleting all Tools: ", err);
+      console.log(">> Error while deleting all Skills: ", err);
     });
 };

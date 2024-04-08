@@ -1,32 +1,32 @@
 const db = require("../models");
-const Section = db.sections;
+const Site = db.sites;
 const Op = db.Sequelize.Op;
 
-// Create and Save a new Section
+// Create and Save a new Site
 exports.create = (req, res) => {
-  // Create a Section
-  Section.create(req.body)
+  // Create a Site
+  Site.create(req.body)
     .then((data) => {
       res.send({
-        section: data,
-        message: "Section posted successfully",
+        site: data,
+        message: "Site posted successfully",
       });
     })
     .catch((err) => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while creating the Section.",
+          err.message || "Some error occurred while creating the Site.",
       });
       console.log(err)
     });
 };
 
-// Retrieve all Sections from the database.
+// Retrieve all Sites from the database.
 exports.findAll = (req, res) => {
   const title = req.query.title;
   var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
 
-  Section.findAll({
+  Site.findAll({
   where: condition,
   include: [
     {
@@ -47,43 +47,43 @@ exports.findAll = (req, res) => {
     });
 };
 
-// Find a single Section with an id
+// Find a single Site with an id
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  Section.findByPk(id)
+  Site.findByPk(id)
     .then((data) => {
       if (data) {
         res.send(data);
       } else {
         res.status(404).send({
-          message: `Cannot find Section with id=${id}.`,
+          message: `Cannot find Site with id=${id}.`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error while retrieving Section",
+        message: "Error while retrieving Site",
       });
-      console.log(">> Error while retrieving Section: ", err);
+      console.log(">> Error while retrieving Site: ", err);
     });
 };
 
-// Update a Section by the id in the request
+// Update a Site by the id in the request
 exports.update = (req, res) => {
   const id = req.params.id;
 
-  Section.update(req.body, {
-    where: { SectionID: id },
+  Site.update(req.body, {
+    where: { SiteID: id },
   })
     .then((num) => {
       if (num == 1) {
         res.send({
-          message: "Section was updated successfully.",
+          message: "Site was updated successfully.",
         });
       } else {
         res.send({
-          message: `Section was not found!`,
+          message: `Site was not found!`,
         });
       }
     })
@@ -95,51 +95,51 @@ exports.update = (req, res) => {
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error while updating Section",
+        message: "Error while updating Site",
       });
-      console.log(">> Error while updating Section: ", err);
+      console.log(">> Error while updating Site: ", err);
     });
 };
 
-// Delete a Section with the specified id in the request
+// Delete a Site with the specified id in the request
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  Section.destroy({
-    where: { SectionID: id },
+  Site.destroy({
+    where: { SiteID: id },
   })
     .then((num) => {
       if (num == 1) {
         res.send({
-          message: "Section was deleted successfully!",
+          message: "Site was deleted successfully!",
         });
       } else {
         res.send({
-          message: `Section was not found!`,
+          message: `Site was not found!`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Could not delete Section",
+        message: "Could not delete Site",
       });
-      console.log(">> Error while deleting Section: ", err);
+      console.log(">> Error while deleting Site: ", err);
     });
 };
 
-// Delete all Sections from the database.
+// Delete all Sites from the database.
 exports.deleteAll = (req, res) => {
-  Section.destroy({
+  Site.destroy({
     where: {},
     truncate: false,
   })
     .then((nums) => {
-      res.send({ message: `${nums} Sections were deleted successfully!` });
+      res.send({ message: `${nums} Sites were deleted successfully!` });
     })
     .catch((err) => {
       res.status(500).send({
         message: "An error occurred while deleting all applications.",
       });
-      console.log(">> Error while deleting all Sections: ", err);
+      console.log(">> Error while deleting all Sites: ", err);
     });
 };
