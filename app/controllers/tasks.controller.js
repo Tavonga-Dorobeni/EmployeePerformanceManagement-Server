@@ -20,7 +20,7 @@ exports.create = async (req, res) => {
     for (let i = 0; i < req.body.skills.length; i++) {
       await TaskSkills.create({
         TaskID: data.TaskID,
-        SkillID: req.body.skills[i].SkillID
+        SkillID: req.body.skills[i]
       }, { transaction: t })
     }
 
@@ -120,7 +120,7 @@ exports.update = async (req, res) => {
     for (let i = 0; i < req.body.skills.length; i++) {
       await TaskSkills.create({
         TaskID: id,
-        SkillID: req.body.skills[i].SkillID
+        SkillID: req.body.skills[i]
       }, { transaction: t })
     }
 

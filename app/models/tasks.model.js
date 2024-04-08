@@ -16,6 +16,19 @@ module.exports = (sequelize, Sequelize) => {
     Description: {
       type: Sequelize.STRING,
       allowNull: false,
+    },
+    StartDate: {
+      type: Sequelize.DATE,
+      allowNull: false,
+    },
+    EndDate: {
+      type: Sequelize.DATE,
+      allowNull: false,
+    },
+    Status: {
+      type: Sequelize.STRING,
+      allowNull: false,
+      defaultValue: "Pending"
     }
   });
 

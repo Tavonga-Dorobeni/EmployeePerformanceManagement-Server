@@ -26,11 +26,11 @@ module.exports = (sequelize, Sequelize) => {
         allowNull: false
       },
       Latitude: {
-        type: Sequelize.STRING,
+        type: Sequelize.DOUBLE,
         allowNull: true
       },
       Longitude: {
-        type: Sequelize.STRING,
+        type: Sequelize.DOUBLE,
         allowNull: true
       }
     });

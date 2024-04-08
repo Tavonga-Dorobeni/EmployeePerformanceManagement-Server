@@ -21,7 +21,7 @@ exports.create = async (req, res) => {
     for (let i = 0; i < req.body.skills.length; i++) {
       await EmployeeSkills.create({
         EmployeeID: data.EmployeeID,
-        SkillID: req.body.skills[i].SkillID
+        SkillID: req.body.skills[i]
       }, { transaction: t })
     }
 
