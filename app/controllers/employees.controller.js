@@ -125,17 +125,17 @@ exports.update = async (req, res) => {
       }, { transaction: t })
     }
 
-    await EmployeeTasks.destroy({
-      where: {
-        EmployeeID: id
-      },
-      transaction: t
-    })
+    // await EmployeeTasks.destroy({
+    //   where: {
+    //     EmployeeID: id
+    //   },
+    //   transaction: t
+    // })
 
-    for (let i = 0; i < req.body.tasks.length; i++) {
+    if(req.body.new_task) {
       await EmployeeTasks.create({
         EmployeeID: id,
-        TaskID: req.body.tasks[i].TaskID
+        TaskID: req.body.new_task.TaskID
       }, { transaction: t })
     }
 
