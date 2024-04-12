@@ -73,15 +73,30 @@ const server = app.listen(PORT, () => {
 // const io = socket(server);
 // io.on("connection", controller.newupdate );
 
+var whitelist = ['http://localhost:8081', 'http://localhost:8082']
+
 const io = require("socket.io")(server, {
   cors: {
-    origin: "http://localhost:8081",
+    origin: function (origin, callback) {
+      if (whitelist.indexOf(origin) !== -1) {
+        callback(null, true)
+      } else {
+        callback(new Error('Not allowed by CORS'))
+      }
+    },
+    credentials: true,
+    transports: ['websocket', 'polling'],
     methods: ["GET", "POST"],
   },
+  allowEIO3: true
 });
 
 io.on("connection", (socket) => {
   console.log(`Made socket connection ${socket.id}`);
+  socket.on("setlocation", function (data) {
+    console.log(`broadcasting data: ${data}`);
+    socket.broadcast.emit("locationres", data);
+  });
   socket.on("socketreq", function (data) {
     console.log(`broadcasting data: ${data}`);
     socket.broadcast.emit("socketres", data);
