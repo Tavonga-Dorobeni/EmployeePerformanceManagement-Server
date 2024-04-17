@@ -41,6 +41,7 @@ db.sites = require("../models/sites.model.js")(sequelize, Sequelize);
 db.employee_tasks = require("../models/employee_tasks.model.js")(sequelize, Sequelize);
 db.employee_skills = require("../models/employee_skills.model.js")(sequelize, Sequelize);
 db.task_skills = require("../models/task_skills.model.js")(sequelize, Sequelize);
+db.task_activities = require("../models/task_activities.model.js")(sequelize, Sequelize);
 
 db.employees.hasMany(db.employee_skills, {
   as: "skills",
@@ -54,6 +55,11 @@ db.employees.hasMany(db.employee_tasks, {
 
 db.tasks.hasMany(db.task_skills, {
   as: "skills",
+  foreignKey: "TaskID",
+}, {foreignKeyConstraint: true});
+
+db.tasks.hasMany(db.task_activities, {
+  as: "activities",
   foreignKey: "TaskID",
 }, {foreignKeyConstraint: true});
 

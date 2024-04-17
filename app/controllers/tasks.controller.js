@@ -1,6 +1,7 @@
 const db = require("../models");
 const Task = db.tasks;
 const TaskSkills = db.task_skills;
+const EmployeeTasks = db.employee_tasks;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new Task
@@ -141,6 +142,12 @@ exports.delete = (req, res) => {
     where: { TaskID: id },
   })
     .then((num) => {
+      TaskSkills.destroy({
+        where: { TaskID: id },
+      });
+      EmployeeTasks.destroy({
+        where: { TaskID: id },
+      });
       if (num == 1) {
         res.send({
           message: "Task was deleted successfully!",
