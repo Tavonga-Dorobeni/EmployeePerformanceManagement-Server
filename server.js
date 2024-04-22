@@ -98,7 +98,7 @@ io.on("connection", (socket) => {
     socket.broadcast.emit("locationres", data);
   });
   socket.on("socketreq", function (data) {
-    console.log(`broadcasting data: ${data}`);
+    console.log(`broadcasting data: ${JSON.stringify(data)}`);
     socket.broadcast.emit("socketres", data);
   });
   socket.on("socketlogoutreq", function () {
