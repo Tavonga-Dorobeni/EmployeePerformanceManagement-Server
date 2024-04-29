@@ -1,6 +1,6 @@
 module.exports = (sequelize, Sequelize) => {
     const TaskActivities = sequelize.define("task_activities", {
-      ID: {
+      TaskActivityID: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true
