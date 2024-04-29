@@ -1,6 +1,7 @@
 const db = require("../models");
 const Task = db.tasks;
 const TaskSkills = db.task_skills;
+const TaskActivities = db.task_activities;
 const EmployeeTasks = db.employee_tasks;
 const Op = db.Sequelize.Op;
 
@@ -180,5 +181,132 @@ exports.deleteAll = (req, res) => {
         message: "An error occurred while deleting all applications.",
       });
       console.log(">> Error while deleting all Tasks: ", err);
+    });
+};
+
+
+
+// Create and Save a new Task Activity
+exports.createTaskActivity = (req, res) => {
+  // Create a Task Activity
+  TaskActivities.create(req.body)
+    .then((data) => {
+      res.send({
+        activity: data,
+        message: "Task Activity posted successfully",
+      });
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while creating the Task Activity.",
+      });
+      console.log(err)
+    });
+};
+
+// Retrieve all TaskActivities from the database.
+exports.findAllTaskActivities = (req, res) => {
+  const title = req.query.title;
+  var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
+
+  TaskActivities.findAll({
+  where: condition,
+  include: [
+    {
+      all: true,
+      nested: true
+    }
+  ],
+  raw: false
+})
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving applications.",
+      });
+    });
+};
+
+// Find a single Task Activity with an id
+exports.findOneTaskActivity = (req, res) => {
+  const id = req.params.id;
+
+  TaskActivities.findByPk(id)
+    .then((data) => {
+      if (data) {
+        res.send(data);
+      } else {
+        res.status(404).send({
+          message: `Cannot find Task Activity with id=${id}.`,
+        });
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Error while retrieving Task Activity",
+      });
+      console.log(">> Error while retrieving Task Activity: ", err);
+    });
+};
+
+// Update a Task Activity by the id in the request
+exports.updateTaskActivity = (req, res) => {
+  const id = req.params.id;
+
+  TaskActivities.update(req.body, {
+    where: { TaskActivityID: id },
+  })
+    .then((num) => {
+      if (num == 1) {
+        res.send({
+          message: "Task Activity was updated successfully.",
+        });
+      } else {
+        res.send({
+          message: `Task Activity was not found!`,
+        });
+      }
+    })
+    .catch(db.Sequelize.UniqueConstraintError, (err) => {
+      res.status(500).send({
+        message: `Duplication Error Occured. "${err.errors[0].value}" already exists!!`,
+      });
+      console.log(">> Duplication Error occured: ", err);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Error while updating Task Activity",
+      });
+      console.log(">> Error while updating Task Activity: ", err);
+    });
+};
+
+// Delete a Task Activity with the specified id in the request
+exports.deleteTaskActivity = (req, res) => {
+  const id = req.params.id;
+
+  TaskActivities.destroy({
+    where: { TaskActivityID: id },
+  })
+    .then((num) => {
+      if (num == 1) {
+        res.send({
+          message: "Task Activity was deleted successfully!",
+        });
+      } else {
+        res.send({
+          message: `Task Activity was not found!`,
+        });
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Could not delete Task Activity",
+      });
+      console.log(">> Error while deleting Task Activity: ", err);
     });
 };

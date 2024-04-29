@@ -20,6 +20,21 @@ module.exports = app => {
   
     // Delete all Taskss
     router.delete("/", tasks.deleteAll);
+
+    // Create a new Task Activity
+    router.post("/activities", tasks.createTaskActivity);
+
+    // Retrieve all Task Activities
+    router.get("/activities", tasks.findAllTaskActivities);
+  
+    // Retrieve a single Task Activity with id
+    router.get("/activities:id", tasks.findOneTaskActivity);
+  
+    // Update a Task Activity with id
+    router.put("/activities:id", tasks.updateTaskActivity);
+  
+    // Delete a Task Activity with id
+    router.delete("/activities:id", tasks.deleteTaskActivity);
   
     app.use('/api/tasks', router);
   };
