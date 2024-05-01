@@ -36,6 +36,7 @@ db.user.belongsToMany(db.role, {
 
 db.employees = require("../models/employee.model.js")(sequelize, Sequelize);
 db.tasks = require("../models/tasks.model.js")(sequelize, Sequelize);
+db.messages = require("../models/messages.model.js")(sequelize, Sequelize);
 db.skills = require("../models/skills.model.js")(sequelize, Sequelize);
 db.sites = require("../models/sites.model.js")(sequelize, Sequelize);
 db.employee_tasks = require("../models/employee_tasks.model.js")(sequelize, Sequelize);
