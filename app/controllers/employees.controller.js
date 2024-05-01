@@ -1,8 +1,11 @@
 const db = require("../models");
+const User = db.user;
+const Role = db.role;
 const Employee = db.employees;
 const EmployeeTasks = db.employee_tasks;
 const EmployeeSkills = db.employee_skills;
 const Op = db.Sequelize.Op;
+var bcrypt = require("bcryptjs");
 
 // Create and Save a new Employee
 exports.create = async (req, res) => {
@@ -11,6 +14,27 @@ exports.create = async (req, res) => {
   try {
     // Create a Employee
     await Employee.create(req.body.employee, { transaction: t })
+
+    const user = {
+      firstname: req.body.employee.FullName.split(" ")[0],
+      lastname: req.body.employee.FullName.split(" ")[1],
+      username: req.body.employee.Email,
+      email: req.body.employee.Email,
+      phone: req.body.employee.Phone,
+      NationalID: req.body.employee.Phone,
+      password: bcrypt.hashSync((req.body.employee.FullName.split(" ")[0].charAt(0) + req.body.employee.FullName.split(" ")[1]).toLowerCase(), 8)
+    }
+
+    User.create(user)
+    .then((user) => {
+      Role.findAll({
+        where: {
+          name: 'Viewer',
+        },
+      }).then((roles) => {
+        user.setRoles(roles);       
+      });
+    })
 
     const data = await Employee.findOne({
       where: {},
