@@ -128,6 +128,7 @@ exports.findOne = (req, res) => {
 exports.update = async (req, res) => {
   const t = await db.sequelize.transaction();
   const id = 17;
+  console.log(req.body)
 
   try {
     await Employee.update(req.body, {
