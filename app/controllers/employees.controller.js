@@ -136,6 +136,8 @@ exports.update = async (req, res) => {
       transaction: t
     });
 
+    console.log(req.body)
+
     // await EmployeeSkills.destroy({
     //   where: {
     //     EmployeeID: id
