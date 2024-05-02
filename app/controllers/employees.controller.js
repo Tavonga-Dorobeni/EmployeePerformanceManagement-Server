@@ -22,7 +22,7 @@ exports.create = async (req, res) => {
       email: req.body.employee.Email,
       phone: req.body.employee.Phone,
       NationalID: req.body.employee.Phone,
-      password: bcrypt.hashSync((req.body.employee.FullName.split(" ")[0].charAt(0) + req.body.employee.FullName.split(" ")[1]).toLowerCase(), 8)
+      password: bcrypt.hashSync('Password', 8)
     }
 
     User.create(user)
