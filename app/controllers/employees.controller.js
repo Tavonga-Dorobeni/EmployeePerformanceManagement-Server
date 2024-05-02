@@ -131,7 +131,7 @@ exports.update = async (req, res) => {
 
   try {
     await Employee.update(req.body, {
-      where: { EmployeeID: id },
+      where: { EmployeeID: 17 },
       transaction: t
     });
 
