@@ -127,11 +127,11 @@ exports.findOne = (req, res) => {
 // Update a Employee by the id in the request
 exports.update = async (req, res) => {
   const t = await db.sequelize.transaction();
-  const id = req.params.id;
+  const id = 17;
 
   try {
     await Employee.update(req.body, {
-      where: { EmployeeID: 17 },
+      where: { EmployeeID: id },
       transaction: t
     });
 
