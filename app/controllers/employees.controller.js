@@ -136,19 +136,19 @@ exports.update = async (req, res) => {
       transaction: t
     });
 
-    await EmployeeSkills.destroy({
-      where: {
-        EmployeeID: id
-      },
-      transaction: t
-    })
+    // await EmployeeSkills.destroy({
+    //   where: {
+    //     EmployeeID: id
+    //   },
+    //   transaction: t
+    // })
 
-    for (let i = 0; i < req.body.skills.length; i++) {
-      await EmployeeSkills.create({
-        EmployeeID: id,
-        SkillID: req.body.skills[i].SkillID
-      }, { transaction: t })
-    }
+    // for (let i = 0; i < req.body.skills.length; i++) {
+    //   await EmployeeSkills.create({
+    //     EmployeeID: id,
+    //     SkillID: req.body.skills[i].SkillID
+    //   }, { transaction: t })
+    // }
 
     // await EmployeeTasks.destroy({
     //   where: {
